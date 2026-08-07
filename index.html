@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>写给老婆的第一封情书</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 30%, #f48fb1 60%, #fce4ec 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* 浮动花瓣装饰 */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 10% 20%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+      radial-gradient(circle at 90% 80%, rgba(255, 182, 193, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(255, 228, 225, 0.3) 0%, transparent 60%);
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    width: 100%;
+    margin: 20px auto 60px;
+  }
+
+  /* 卡片 */
+  .card {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08), 0 2px 10px rgba(0, 0, 0, 0.04);
+    padding: 32px 28px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f48fb1, #f06292, #ec407a, #f06292, #f48fb1);
+    border-radius: 20px 20px 0 0;
+  }
+
+  /* 花瓣装饰 */
+  .petal {
+    position: absolute;
+    font-size: 24px;
+    opacity: 0.15;
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+  }
+  .petal:nth-child(1) { top: 10px; right: 20px; animation-delay: 0s; }
+  .petal:nth-child(2) { top: 60px; left: 15px; animation-delay: 2s; font-size: 18px; }
+  .petal:nth-child(3) { top: 140px; right: 25px; animation-delay: 4s; font-size: 20px; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(10deg); }
+  }
+
+  /* 标题 */
+  .title {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .title h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #d81b60;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .title .heart {
+    display: inline-block;
+    animation: heartbeat 1.2s ease-in-out infinite;
+    color: #e91e63;
+    font-size: 28px;
+  }
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.25); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.2); }
+    60% { transform: scale(1); }
+  }
+
+  /* 音频播放器 */
+  .player-section {
+    margin-bottom: 30px;
+  }
+  .player-wrapper {
+    background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+    border-radius: 16px;
+    padding: 18px 20px 14px;
+    text-align: center;
+  }
+  .player-label {
+    font-size: 14px;
+    color: #ad1457;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+  .player-label .icon {
+    margin-right: 4px;
+  }
+  audio {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 30px;
+    outline: none;
+  }
+  /* 美化audio控件 */
+  audio::-webkit-media-controls-panel {
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+  audio::-webkit-media-controls-play-button {
+    background-color: #e91e63;
+    border-radius: 50%;
+  }
+
+  /* 分割线 */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 28px 0;
+    gap: 10px;
+  }
+  .divider .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #f48fb1, transparent);
+    max-width: 80px;
+  }
+  .divider .dot {
+    width: 6px;
+    height: 6px;
+    background: #f48fb1;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* 情书内容 */
+  .letter-body {
+    color: #424242;
+    line-height: 2;
+    font-size: 16px;
+  }
+  .letter-body p {
+    text-indent: 2em;
+    margin-bottom: 16px;
+  }
+  .letter-body .salutation {
+    text-indent: 0;
+    font-weight: 600;
+    color: #555;
+  }
+  .letter-body .signature {
+    text-align: right;
+    text-indent: 0;
+    margin-top: 24px;
+    color: #777;
+    font-style: italic;
+  }
+
+  /* 底部纪念日 */
+  .footer-note {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(244, 143, 177, 0.3);
+    font-size: 13px;
+    color: #999;
+    letter-spacing: 1px;
+  }
+
+  /* 响应式 */
+  @media (max-width: 480px) {
+    .card {
+      padding: 24px 18px 32px;
+      border-radius: 16px;
+    }
+    .title h1 {
+      font-size: 22px;
+    }
+    .letter-body {
+      font-size: 15px;
+      line-height: 1.9;
+    }
+    .player-wrapper {
+      padding: 14px 12px 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <!-- 装饰 -->
+    <span class="petal">🌸</span>
+    <span class="petal">💮</span>
+    <span class="petal">🌷</span>
+
+    <!-- 标题 -->
+    <div class="title">
+      <h1>写给老婆的第一封情书 <span class="heart">💌</span></h1>
+    </div>
+
+    <!-- 音频播放器 -->
+    <div class="player-section">
+      <div class="player-wrapper">
+        <div class="player-label">
+          <span class="icon">🎧</span> 点播放，听我给你读
+        </div>
+        <audio controls controlsList="nodownload">
+          <source src="audio.mp3" type="audio/mpeg">
+          你的浏览器不支持音频播放，请升级浏览器。
+        </audio>
+      </div>
+    </div>
+
+    <!-- 分割线 -->
+    <div class="divider">
+      <span class="line"></span>
+      <span class="dot"></span>
+      <span class="line"></span>
+    </div>
+
+    <!-- 情书正文 -->
+    <div class="letter-body">
+      <p class="salutation">亲爱的老婆：</p>
+      <p>当你看到这封信的时候，就代表我已经决定并期许：从今以后，能好好偏爱你、珍惜你，一心一意喜欢你。虽然提笔写下这些文字的时刻，我还未曾亲耳听见你温柔的名字，但这丝毫没有冲淡我对你的满心欢喜，反而让这份喜欢多了一份纯粹的期许，我满心期待，往后能亲口唤千万次你的名字。</p>
+      <p>相识之初，我们之间整整隔着1300千米的山川人海，但千里的距离，没有阻隔我们相遇、相知、相伴。短短两个月的时光，你的出现治愈了我所有的平淡与孤单。我早已说不清是从哪一个瞬间开始，或许是深夜温柔的聊天，或许是彼此包容的偏爱，又或许是日复一日的陪伴，让你稳稳住进了我的心底，再也无法割舍。</p>
+      <p>我们仅仅是一通电话、一句确认，便确定了爱意，也许在快餐式恋爱时代里，这样简单的开始早已见怪不怪。可我始终觉得，真挚的爱意理应被郑重对待，我不愿让这份来之不易的感情流于敷衍，更不愿意让你在某个寂静的深夜，暗自委屈、心生遗憾，哪怕只是一丝被敷衍、被看轻的错觉，我都舍不得让你拥有。</p>
+      <p>思来想去，我选择用书信这种最温柔、最质朴的方式弥补缺憾。文字无声，却藏尽我最赤诚的心意，它会替我留住当下的心动，替我告诉你，你从来都不是我随便的选择，而是我深思熟虑、想要好好珍惜的偏爱。</p>
+      <p>你真的特别美好，可爱、善良、心思细腻又有一点点"坏"，带着独属于你的光芒，照亮了我平平无奇的生活。我性子不算完美，偶尔会语无伦次、胡言乱语，偶尔又会沉默寡言、笨拙迟钝，不经意间就让你难过、让你失落。每每事后回想，我都满心愧疚与自责。</p>
+      <p>但亲爱的，请你一定要相信，所有的笨拙和沉默，都从来不是我的本意。我满心满眼都是你，我最想做的事情，就是逗你开心、给予你所有的陪伴，想时时刻刻粘着你，就如之前所说"你讨厌我我也想粘着你"。</p>
+      <p>在此，请你原谅我偶尔隔着屏幕的小心翼翼。我不是在刻意试探你的心意，只是千里相隔的距离太遥远，我害怕言语有偏差、表达有疏漏，让你产生一丝误解，让我们生出半点隔阂，我小心翼翼、步步谨慎，生怕我的莽撞、我的不妥当，掀起风浪，惊扰了满心珍贵的你。</p>
+      <p>也请你原谅我偶尔的迟钝木讷。从前的我，生活平静无波，像一潭安稳无浪的湖水，自在且平淡。而你的出现，就像一艘珍贵的小船，轻轻驶入我的湖心，让我的整片世界都泛起了温柔的涟漪。我一时之间，还没有完全适应这份突如其来的温柔与期许，没有给予你足够的反馈。请你不要对我失望，我会慢慢地改变。</p>
+      <p>距离阻隔不了爱意，从今天起也不会再阻隔我们相拥。往后的日子，我会慢慢褪去笨拙，学会好好表达、好好爱你。我会把所有的温柔与耐心都留给你，弥补所有的遗憾，给你满满的安全感与偏爱。</p>
+      <p>最后，请允许我擅自决定，将今天定为我们在一起的纪念日。何其有幸，今朝有你，愿余岁今朝，亦有彼此相伴。</p>
+      <p class="signature">永远喜欢你的我</p>
+    </div>
+
+    <!-- 纪念日 -->
+    <div class="footer-note">
+      📅 纪念日 · 2026年8月8日
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
